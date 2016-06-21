@@ -29,25 +29,27 @@ Route::get('/profile/edit', function(){
 
 Route::post('/profile/edit', array('uses'=>'EditController@editUser'));
 
-Route::get('/admin/userlist', function(){
+Route::get('/admin/userlist', ['middleware'=>'admin', function(){
 	return view('userlist');
-});
+}]);
 
 //Route::post('/admin/edituser', array('uses'=>'AdminController@editRedirect'));
 
-Route::get('/admin/user/{idedit}', function($idedit){
+Route::get('/admin/user/{idedit}', ['middleware'=>'admin', function($idedit){
 	return view('adminuserview', array('idedit' => $idedit));
-});
+}]);
 
-Route::get('/admin/edituser/{idedit}', function($idedit){
+Route::get('/admin/edituser/{idedit}', ['middleware'=>'admin', function($idedit){
 	return view('adminedit', array('idedit' => $idedit));
-});
+}]);
 
 Route::post('/admin/edituser/edit', array('uses'=>'AdminController@editSubmit'));
 
-Route::get('/admin/newuser', function(){
+Route::get('/admin/newuser', ['middleware'=>'admin', function(){
 	return view('adminnewuser');
-});
+}]);
 
 Route::post('/admin/newuser', array('uses'=>'AdminController@newUser'));
+
+Route::any('/admin/reset', array('uses'=>'Auth\PasswordController@sendResetLinkEmail'));
 

@@ -138,6 +138,17 @@
                             </div>
                         </div>
 
+					<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="isadmin" class="col-md-4 control-label">Set as Admin?:</label>
+
+                            <div class="col-md-6">
+                                <input type="radio" name="isadmin" value="false" checked>No Admin Privliges</br>
+<input type="radio" name="isadmin" value="true">Grant Admin Privliges</br>
+                              
+                            </div>
+                        </div>
+				
+
                         
 
                         <div class="form-group">

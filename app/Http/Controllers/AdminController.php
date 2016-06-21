@@ -11,9 +11,8 @@ class AdminController extends Controller
 {
     public static function isAdmin(){
 		if (\Auth::guest() == false){
-			$email = \Auth::user()->email;
 			$isAdminTrue = \Auth::user()->isadmin;
-			if ($isAdminTrue == true){
+			if ($isAdminTrue === true){
 				return true;
 			}
 		}
@@ -29,7 +28,7 @@ class AdminController extends Controller
 	}*/
 
 	public function editSubmit(Request $request){
-		$idedit = $request->input('idedit');
+		$idedit = intval($request->input('idedit'));
 		$useredit = User::getUserByID($idedit);
 		if (($newname = $request->input('name')) == ""){
 			$newname = $useredit['name'];
@@ -58,13 +57,18 @@ class AdminController extends Controller
 		if (($newphone = $request->input('phone')) == ""){
 			$newphone == $useredit['phone'];
 		}
+		$truefalse = $request->input('isadmin');
+		$newisadmin = false;
+		if (strcmp($truefalse, 'true') === 0){
+			$newisadmin = true;
+		}
 		//if (($newpassword = $request->input('password')) == ""){
 			//$newpassword = $useredit['password'];
 		//}
 	    DB::update('update users set name = ?, address = ?, city = ?, state = ?, zip = ?,
-			month = ?, day = ?, year = ?, phone = ? where id = ?', [$newname,
+			month = ?, day = ?, year = ?, phone = ?, isadmin = ? where id = ?', [$newname,
 			$newaddress, $newcity, $newstate, $newzip, $newmonth, $newday, $newyear, 
-            $newphone, $idedit]);
+            $newphone, $newisadmin, $idedit]);
  		return redirect('/admin/userlist');
 	}
 

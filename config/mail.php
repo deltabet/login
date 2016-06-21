@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'log'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,8 +29,9 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-
+    //'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+	//'host' => env('MAIL_HOST', 'email-smtp.us-west-2.amazonaws.com'),
+	'host' => env('MAIL_HOST', 'localhost'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Port
@@ -55,7 +56,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'admin@neuone.com', 'name' => 'Admin Admin'],
+    'from' => ['address' => 'taiyi@neuone.com', 'name' => 'AKIAJTFKSP7SXF56X3OQ '],
 
     /*
     |--------------------------------------------------------------------------
@@ -81,8 +82,8 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME'),
-
+    //'username' => env('MAIL_USERNAME', 'taiyi@neuone.com@gmail.com'),
+		'username' => env('MAIL_USERNAME', 'AKIAJTFKSP7SXF56X3OQ'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Password
@@ -94,7 +95,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD'),
+    'password' => env('AjjrYDSZ/S+B8hsDdboKxLetYCfWLi91wzsoHBhpv/MA'),
 
     /*
     |--------------------------------------------------------------------------
@@ -108,5 +109,7 @@ return [
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
+
+	'pretend' => true,
 
 ];

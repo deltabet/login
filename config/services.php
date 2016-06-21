@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain' => env('sandbox42aefdd431ff454981b1f3fcebed5441.mailgun.org'),
+        'secret' => env('key-3ca4e136c25d67915d1ca1f88a30a89e'),
     ],
 
     'mandrill' => [
@@ -24,9 +24,9 @@ return [
     ],
 
     'ses' => [
-        'key' => env('SES_KEY'),
-        'secret' => env('SES_SECRET'),
-        'region' => 'us-east-1',
+        'key' => env('AKIAI3BDZRNV5NHYVQBQ'),
+        'secret' => env('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'),
+        'region' => 'us-west-2',
     ],
 
     'sparkpost' => [
