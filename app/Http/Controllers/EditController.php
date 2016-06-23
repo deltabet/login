@@ -40,6 +40,9 @@ class EditController extends Controller
 		if (($newpassword = $request->input('password')) == ""){
 			$newpassword = \Auth::user()->password;
 		}
+		else{
+			$newpassword = \Hash::make($newpassword);
+		}
 	    DB::update('update users set password = ?, name = ?, address = ?, city = ?, state = ?, zip = ?,
 			month = ?, day = ?, year = ?, phone = ? where email = ?', [$newpassword, $newname,
 			$newaddress, $newcity, $newstate, $newzip, $newmonth, $newday, $newyear, 
