@@ -4,11 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            @if(Session::has('adminReset'))
+				<div class="adminReset">
+					<font color="green">{{Session::get('adminReset')}}</font>
+				</div>
+			@endif
             <div class="panel panel-default">
                 <div class="panel-heading">Profiles</div>
 				<div class="panel-body">
 				<a href="/admin/newuser"> Add User</a>
 				</div>
+				
 				@foreach (App\User::allUsers() as $user)
 					<div class="panel-body">
                     {{$user->name}}, {{$user->email}}

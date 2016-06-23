@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use DB;
+use Illuminate\Mail\Message;
 class AdminController extends Controller
 {
+
+
     public static function isAdmin(){
 		if (\Auth::guest() == false){
 			$isAdminTrue = \Auth::user()->isadmin;
@@ -29,33 +32,34 @@ class AdminController extends Controller
 
 	public function editSubmit(Request $request){
 		$idedit = intval($request->input('idedit'));
-		$useredit = User::getUserByID($idedit);
+		$useredit = DB::select('select name, address, city, state, zip,
+		 month, day, year, phone from users where id = ?', [$idedit]);
 		if (($newname = $request->input('name')) == ""){
-			$newname = $useredit['name'];
+			$newname = $useredit[0]->name;
 		}
 		if (($newaddress = $request->input('address')) == ""){
-			$newaddress = $useredit['address'];
+			$newaddress = $useredit[0]->address;
 		}
 		if (($newcity = $request->input('city')) == ""){
-			$newcity = $useredit['city'];
+			$newcity = $useredit[0]->city;
 		}
 		if (($newstate = $request->input('state')) == ""){
-			$newstate = $useredit['state'];
+			$newstate = $useredit[0]->state;
 		}
 		if (($newzip = $request->input('zip')) == ""){
-			$newzip = $useredit['zip'];
+			$newzip = $useredit[0]->zip;
 		}
 		if (($newmonth = $request->input('month')) == ""){
-			$newmonth = $useredit['month'];
+			$newmonth = $useredit[0]->month;
 		}
 		if (($newday = $request->input('day')) == ""){
-			$newday = $useredit['day'];
+			$newday = $useredit[0]->day;
 		}
 		if (($newyear = $request->input('year')) == ""){
-			$newyear = $useredit['year'];
+			$newyear = $useredit[0]->year;
 		}
 		if (($newphone = $request->input('phone')) == ""){
-			$newphone == $useredit['phone'];
+			$newphone == $useredit[0]->phone;
 		}
 		$truefalse = $request->input('isadmin');
 		$newisadmin = false;
@@ -102,6 +106,14 @@ class AdminController extends Controller
 			state, zip, month, day, year, phone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 
 			?, ?, ?)', [$email, $name, $password, $address, $city, $state, 
 			$zip, $month, $day, $year, $phone]);
+		return redirect('/admin/userlist');
+	}
+
+	public function resetPassword(Request $request){
+		$request->session()->flash('adminReset', 'Reset Email Sent to User');
+		\Password::sendResetLink($request->only('email'), function (Message $message) {
+            $message->subject('Your Password Reset Link');
+        });
 		return redirect('/admin/userlist');
 	}
 }
