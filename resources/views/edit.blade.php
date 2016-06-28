@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/profile/edit') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/profile/edit') }}"> 	
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -85,13 +85,19 @@
                             <label for="month" class="col-md-4 control-label">Month:</label>
 
                             <div class="col-md-6">
-                                <input id="month" type="text" class="form-control"  name="month" value="{{ Auth::user()->month }}">
-
+                               <!-- <input id="month" type="text" class="form-control"  name="month" value="{{ old('month') }}"> -->
+								<?php $rangem = range(1, 12); $oldm = Auth::user()->month;?>
+								<select id="month" class="form-control" name="month" >
+								@foreach($rangem as $m)
+									<option value="{{$m}}" <?php if($m==$oldm){echo "selected=\"selected\"";} ?> >{{$m}}</option>
+								@endforeach
+								</select>
                                 @if ($errors->has('month'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('month') }}</strong>
                                     </span>
                                 @endif
+								
                             </div>
                         </div>
 
@@ -99,8 +105,18 @@
                             <label for="day" class="col-md-4 control-label">Day:</label>
 
                             <div class="col-md-6">
-                                <input id="day" type="text" class="form-control"  name="day" value="{{ Auth::user()->day }}">
-
+                               <!-- <input id="day" type="text" class="form-control"  name="day" value="{{ old('day') }}"> -->
+								<?php $ranged = range(1, 31); $oldd = Auth::user()->day;?>
+								<select id="day" class="form-control" name="day">
+								@foreach($ranged as $d)
+									@if($d != $oldd)
+									<option value="{{$d}}">
+									@else
+									<option value="{{$d}}" selected="selected">
+									@endif
+									{{$d}}</option>
+								@endforeach
+								</select>
                                 @if ($errors->has('day'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('day') }}</strong>

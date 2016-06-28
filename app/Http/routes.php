@@ -33,9 +33,6 @@ Route::get('/admin/userlist', ['middleware'=>'admin', function(){
 	return view('userlist');
 }]);
 
-//Route::post('/admin/edituser', array('uses'=>'AdminController@editRedirect'));
-/**/
-
 
 Route::get('/admin/user/{idedit}', ['middleware'=>'admin', function($idedit){
 	return view('adminuserview', array('idedit' => $idedit));

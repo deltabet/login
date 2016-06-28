@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'log'),
+    'driver' => env('MAIL_DRIVER', 'ses'),
 
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return [
 
     //'host' => env('MAIL_HOST', 'smtp.gmail.com'),
 	//'host' => env('MAIL_HOST', 'email-smtp.us-west-2.amazonaws.com'),
-	'host' => env('MAIL_HOST', 'localhost'),
+	'host' => env('MAIL_HOST', 'email-smtp.us-west-2.amazonaws.com'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Port
@@ -110,6 +110,6 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
-	'pretend' => true,
+	//'pretend' => true,
 
 ];

@@ -25,11 +25,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-	public static function allUsers(){
-		return DB::table('users')->get();
-	}
 
- 	public static function getUserByID($id){
+ 	/*public static function getUserByID($id){
 		$useredit = array();	
 		$useredit['name'] = DB::select('select name from users where id = ?', [$id])[0];
 		$useredit['email'] = DB::select('select email from users where id = ?', [$id])[0];
@@ -43,5 +40,5 @@ class User extends Authenticatable
 		$useredit['phone'] = DB::select('select phone from users where id = ?', [$id])[0];
 		//$useredit['password'] = DB::select('select password from users where id = ?', [$id])[0];
 		return $useredit;
-	}
+	}*/
 }

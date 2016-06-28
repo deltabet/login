@@ -5,48 +5,48 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\User;
 use DB;
 class EditController extends Controller
 {
     public function editUser(Request $request){
         $email = \Auth::user()->email;
-		if (($newname = $request->input('name')) == ""){
-			$newname = \Auth::user()->name;
+		$thisUser = User::where('email', $email)->first();
+		if ($request->input('name') != ""){
+			$thisUser->name = $request->input('name');
 		}
-		if (($newaddress = $request->input('address')) == ""){
-			$newaddress = \Auth::user()->address;
+		if ($request->input('address') != ""){
+			$thisUser->address = $request->input('address');
 		}
-		if (($newcity = $request->input('city')) == ""){
-			$newcity = \Auth::user()->city;
+		if ($request->input('city') != ""){
+			$thisUser->city = $request->input('city');
 		}
-		if (($newstate = $request->input('state')) == ""){
-			$newstate = \Auth::user()->state;
+		if ($request->input('state') != ""){
+			$thisUser->state = $request->input('state');
 		}
-		if (($newzip = $request->input('zip')) == ""){
-			$newzip = \Auth::user()->zip;
+		if ($request->input('zip') != ""){
+			$thisUser->zip = $request->input('zip');
 		}
-		if (($newmonth = $request->input('month')) == ""){
-			$newmonth = \Auth::user()->month;
+		if ($request->input('month') != ""){
+			$thisUser->month = $request->input('month');
 		}
-		if (($newday = $request->input('day')) == ""){
-			$newday = \Auth::user()->day;
+		if ($request->input('day') != ""){
+			$thisUser->day = $request->input('day');
 		}
-		if (($newyear = $request->input('year')) == ""){
-			$newyear = \Auth::user()->year;
+		if ($request->input('year') != ""){
+			$thisUser->year = $request->input('year');
 		}
-		if (($newphone = $request->input('phone')) == ""){
-			$newphone == \Auth::user()->phone;
+		if ($request->input('phone') != ""){
+			$thisUser->phone = $request->input('phone');
 		}
-		if (($newpassword = $request->input('password')) == ""){
-			$newpassword = \Auth::user()->password;
+		if ($request->input('password') != ""){
+			$thisUser->password = \Hash::make($request->input('password'));
 		}
-		else{
-			$newpassword = \Hash::make($newpassword);
-		}
-	    DB::update('update users set password = ?, name = ?, address = ?, city = ?, state = ?, zip = ?,
+		$thisUser->save();
+	    /*DB::update('update users set password = ?, name = ?, address = ?, city = ?, state = ?, zip = ?,
 			month = ?, day = ?, year = ?, phone = ? where email = ?', [$newpassword, $newname,
 			$newaddress, $newcity, $newstate, $newzip, $newmonth, $newday, $newyear, 
-            $newphone, $email]);
+            $newphone, $email]);*/
  		return redirect('/profile/');
     }
 }

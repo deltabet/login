@@ -14,8 +14,7 @@
 				<div class="panel-body">
 				<a href="/admin/newuser"> Add User</a>
 				</div>
-				
-				@foreach (App\User::allUsers() as $user)
+				@foreach (App\User::all() as $user)
 					<div class="panel-body">
                     {{$user->name}}, {{$user->email}}
 					<form action ="/admin/user/{{$user->id}}">

@@ -22,90 +22,87 @@ class AdminController extends Controller
 		return false;
     }
 
-	/*public function editRedirect(Request $request){
-		$idedit = $request->input('idedit');
-		//$useredit = DB::select('select 1 from users where email = ?', [$idedit])[0];
-		//$request->session()->flash();
-		//return view('adminedit')->with(array('useredit' => $useredit));
-		return redirect('/admin/edituser/' . $idedit)->withInput('idedit');
-	}*/
-
 	public function editSubmit(Request $request){
 		$idedit = intval($request->input('idedit'));
-		$useredit = DB::select('select name, address, city, state, zip,
-		 month, day, year, phone from users where id = ?', [$idedit]);
-		if (($newname = $request->input('name')) == ""){
-			$newname = $useredit[0]->name;
+		$useredit = User::where('id', $idedit)->first();
+		//$useredit = DB::select('select name, address, city, state, zip,
+		 //month, day, year, phone from users where id = ?', [$idedit]);
+		if ($request->input('name') != ""){
+			$useredit->name = $request->input('name');
 		}
-		if (($newaddress = $request->input('address')) == ""){
-			$newaddress = $useredit[0]->address;
+		if ($request->input('address') != ""){
+			$useredit->address = $request->input('address');
 		}
-		if (($newcity = $request->input('city')) == ""){
-			$newcity = $useredit[0]->city;
+		if ($request->input('city') != ""){
+			$useredit->city = $request->input('city');
 		}
-		if (($newstate = $request->input('state')) == ""){
-			$newstate = $useredit[0]->state;
+		if ($request->input('state') != ""){
+			$useredit->state = $request->input('state');
 		}
-		if (($newzip = $request->input('zip')) == ""){
-			$newzip = $useredit[0]->zip;
+		if ($request->input('zip') != ""){
+			$useredit->zip = $request->input('zip');
 		}
-		if (($newmonth = $request->input('month')) == ""){
-			$newmonth = $useredit[0]->month;
+		if ($request->input('month') != ""){
+			$useredit->month = $request->input('month');
 		}
-		if (($newday = $request->input('day')) == ""){
-			$newday = $useredit[0]->day;
+		if ($request->input('day') != ""){
+			$useredit->day = $request->input('day');
 		}
-		if (($newyear = $request->input('year')) == ""){
-			$newyear = $useredit[0]->year;
+		if ($request->input('year') != ""){
+			$useredit->year = $request->input('year');
 		}
-		if (($newphone = $request->input('phone')) == ""){
-			$newphone == $useredit[0]->phone;
+		if ($request->input('phone') != ""){
+			$useredit->phone = $request->input('phone');
 		}
 		$truefalse = $request->input('isadmin');
 		$newisadmin = false;
 		if (strcmp($truefalse, 'true') === 0){
 			$newisadmin = true;
 		}
-		//if (($newpassword = $request->input('password')) == ""){
-			//$newpassword = $useredit['password'];
-		//}
-	    DB::update('update users set name = ?, address = ?, city = ?, state = ?, zip = ?,
+		$useredit->isadmin = $newisadmin;
+		$useredit->save();
+	    /*DB::update('update users set name = ?, address = ?, city = ?, state = ?, zip = ?,
 			month = ?, day = ?, year = ?, phone = ?, isadmin = ? where id = ?', [$newname,
 			$newaddress, $newcity, $newstate, $newzip, $newmonth, $newday, $newyear, 
-            $newphone, $newisadmin, $idedit]);
+            $newphone, $newisadmin, $idedit]);*/
  		return redirect('/admin/userlist');
 	}
 
 	public function newUser(Request $request){
 		$email = $request->input('email');
 		//verify
-		$userexist = DB::select('select 1 from users where email = ?', [$email]);
+		$userexist = User::where('email', $email)->get();
+		//$userexist = DB::select('select 1 from users where email = ?', [$email]);
 		if (count($userexist) >= 1){
 		  return redirect('/admin/newuser')->withErrors(['email', 'Email Already Exists']);
 		}
+		$newUser = new User;
 		$password = $request->input('password');
 		$passwordconfirm = $request->input('password_confirmation');
 		if (strcmp($password, $passwordconfirm) !== 0){
 			return redirect('/admin/newuser')->withErrors(['password', 'Passwords Must Match']);
 		}
-		$name = $request->input('name');
-		$address = $request->input('address');
-		$city = $request->input('city');
-		$state = $request->input('state');
-		$zip = $request->input('zip');
-		$month = $request->input('month');
-		$day = $request->input('day');
-		$year = $request->input('year');
-		$phone = $request->input('phone');
-		
-		
 		//hash password
 		$password = \Hash::make($password);
+
+		$newUser->password = $password;
+		$newUser->name = $request->input('name');
+		$newUser->address = $request->input('address');
+		$newUser->city = $request->input('city');
+		$newUser->state = $request->input('state');
+		$newUser->zip = $request->input('zip');
+		$newUser->month = $request->input('month');
+		$newUser->day = $request->input('day');
+		$newUser->year = $request->input('year');
+		$newUser->phone = $request->input('phone');
+		
+		$newUser->save();
+		
 		//store, 
-		  DB::insert('insert into users (email, name, password, address, city, 
+		  /*DB::insert('insert into users (email, name, password, address, city, 
 			state, zip, month, day, year, phone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 
 			?, ?, ?)', [$email, $name, $password, $address, $city, $state, 
-			$zip, $month, $day, $year, $phone]);
+			$zip, $month, $day, $year, $phone]);*/
 		return redirect('/admin/userlist');
 	}
 
