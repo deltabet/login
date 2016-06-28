@@ -21,7 +21,7 @@ Unit Testing (multiple people can do)
 
 
 
-Taiyi:
+-Taiyi:
 Dependency Injection
 SQL
 
