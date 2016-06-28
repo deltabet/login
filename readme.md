@@ -1,13 +1,22 @@
 Refactor list:
 route group
+
 sql (eloquent model)
+
 any (syntax in route.php)
+
 csrf
+
 dependency injection
+
 Named routes
+
 requests validators instead of controller
+
 Admin redirect 403 error
+
 Unit Testing (multiple people can do)
+
 
 Taiyi:
 Dependency Injection
