@@ -1,20 +1,19 @@
-Since Databases and keys are different, downloading this directly probably won't work.
+Refactor list:
+route group
+sql (eloquent model)
+any (syntax in route.php)
+csrf
+dependency injection
+Named routes
+requests validators instead of controller
+Admin redirect 403 error
+Unit Testing (multiple people can do)
 
-There is no initial admin user. A new user must be created and set as admin, probably with php artisan tinker. Once an admin exsits, that admin can make other users admins as well.
+Taiyi:
+Dependency Injection
+SQL
 
-Email configs use log as driver and localhost as host. This writes the password reset email to the log file in storage/log instead of actually sending an email. I have not found a service that works yet, but I got the closest with Amazon SES
 
-TODO: Replace birthday with date interface rather than strings
-When admin resets a user password, send a message
-Set up actual emails instead of logs
-
-Current Capabilities:
-
-User create, edit info
-Admin create, edit user info, look at user list, give users admin permissions
-User reset password
-Admin reset password (when hitting button, email will send with no notification yet. Check log)
-Admin middleware (admin 'get' pages can only be accessed by admin)
 
 Changed files
 App/User.php
