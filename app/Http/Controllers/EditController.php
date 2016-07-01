@@ -43,10 +43,6 @@ class EditController extends Controller
 			$thisUser->password = \Hash::make($request->input('password'));
 		}
 		$thisUser->save();
-	    /*DB::update('update users set password = ?, name = ?, address = ?, city = ?, state = ?, zip = ?,
-			month = ?, day = ?, year = ?, phone = ? where email = ?', [$newpassword, $newname,
-			$newaddress, $newcity, $newstate, $newzip, $newmonth, $newday, $newyear, 
-            $newphone, $email]);*/
  		return redirect('/profile/');
     }
 }

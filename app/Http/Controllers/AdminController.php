@@ -65,7 +65,7 @@ class AdminController extends Controller
 			month = ?, day = ?, year = ?, phone = ?, isadmin = ? where id = ?', [$newname,
 			$newaddress, $newcity, $newstate, $newzip, $newmonth, $newday, $newyear, 
             $newphone, $newisadmin, $idedit]);*/
- 		return redirect('/admin/userlist');
+ 		return redirect(route('userlist'));
 	}
 
 	public function newUser(Request $request){
@@ -74,18 +74,19 @@ class AdminController extends Controller
 		$userexist = User::where('email', $email)->get();
 		//$userexist = DB::select('select 1 from users where email = ?', [$email]);
 		if (count($userexist) >= 1){
-		  return redirect('/admin/newuser')->withErrors(['email', 'Email Already Exists']);
+		  return redirect(route('adminnew'))->withErrors(['email', 'Email Already Exists']);
 		}
 		$newUser = new User;
 		$password = $request->input('password');
 		$passwordconfirm = $request->input('password_confirmation');
 		if (strcmp($password, $passwordconfirm) !== 0){
-			return redirect('/admin/newuser')->withErrors(['password', 'Passwords Must Match']);
+			return redirect(route('adminnew'))->withErrors(['password', 'Passwords Must Match']);
 		}
 		//hash password
 		$password = \Hash::make($password);
 
 		$newUser->password = $password;
+		$newUser->email = $email;
 		$newUser->name = $request->input('name');
 		$newUser->address = $request->input('address');
 		$newUser->city = $request->input('city');
@@ -103,7 +104,7 @@ class AdminController extends Controller
 			state, zip, month, day, year, phone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 
 			?, ?, ?)', [$email, $name, $password, $address, $city, $state, 
 			$zip, $month, $day, $year, $phone]);*/
-		return redirect('/admin/userlist');
+		return redirect(route('userlist'));
 	}
 
 	public function resetPassword(Request $request){
@@ -111,6 +112,6 @@ class AdminController extends Controller
 		\Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject('Your Password Reset Link');
         });
-		return redirect('/admin/userlist');
+		return redirect(route('userlist'));
 	}
 }

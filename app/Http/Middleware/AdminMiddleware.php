@@ -21,6 +21,6 @@ class AdminMiddleware
 				return $next($request);
 			}
 		}
-		abort(403);
+		return redirect('/403');
     }
 }

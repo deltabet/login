@@ -28,7 +28,7 @@
                     Phone Number: {{ $useredit->phone }}
                 </div>
 			<div class="panel-body">
-	<a href="{{'/admin/edituser/' . $idedit}}">Change Profile Information</a>
+	<a href="{{route('adminedit', ['idedit' => $idedit])}}">Change Profile Information</a>
 			</div>
             </div>
         </div>

@@ -27,28 +27,36 @@ Route::get('/profile/edit', function(){
 	return view('edit');
 });
 
-Route::post('/profile/edit', array('uses'=>'EditController@editUser'));
+Route::post('/profile/edit', ['uses'=>'EditController@editUser']);
 
-Route::get('/admin/userlist', ['middleware'=>'admin', function(){
-	return view('userlist');
-}]);
+Route::group(['middleware'=>'admin'], function(){
+
+	Route::get('/admin/userlist', ['as' => 'userlist', function(){
+		return view('admin/userlist');
+	}]);
 
 
-Route::get('/admin/user/{idedit}', ['middleware'=>'admin', function($idedit){
-	return view('adminuserview', array('idedit' => $idedit));
-}]);
+	Route::get('/admin/user/{idedit}', ['as' => 'adminview', function($idedit){
+		return view('admin/adminuserview', ['idedit' => $idedit]);
+	}]);
 
-Route::get('/admin/edituser/{idedit}', ['middleware'=>'admin', function($idedit){
-	return view('adminedit', array('idedit' => $idedit));
-}]);
+	Route::get('/admin/edituser/{idedit}', ['as' => 'adminedit', function($idedit){
+		return view('admin/adminedit', ['idedit' => $idedit]);
+	}]);
 
-Route::post('/admin/edituser/edit', array('uses'=>'AdminController@editSubmit'));
+	Route::post('/admin/edituser/edit', ['as' => 'admineditaction', 'uses'=>'AdminController@editSubmit']);
 
-Route::get('/admin/newuser', ['middleware'=>'admin', function(){
-	return view('adminnewuser');
-}]);
+	Route::get('/admin/newuser', ['as' => 'adminnew', function(){
+		return view('admin/adminnewuser');
+	}]);
 
-Route::post('/admin/newuser', array('uses'=>'AdminController@newUser'));
+	Route::post('/admin/newuser', ['as' => 'adminnew', 'uses'=>'AdminController@newUser']);
 
-Route::any('/admin/reset', array('uses'=>'AdminController@resetPassword'));
+	Route::post('/admin/reset', ['as' => 'adminreset','uses'=>'AdminController@resetPassword']);
+
+});
+
+Route::get('/403', function(){
+	return view('403');
+});
 

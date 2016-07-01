@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/newuser') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('adminnew') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -98,13 +98,19 @@
                             <label for="month" class="col-md-4 control-label">Month:</label>
 
                             <div class="col-md-6">
-                                <input id="month" type="text" class="form-control"  name="month" value="{{ old('month') }}">
-
+                               <!-- <input id="month" type="text" class="form-control"  name="month" value="{{ old('month') }}"> -->
+								<?php $rangem = range(1, 12); ?>
+								<select id="month" type="select" class="form-control" name="month">
+								@foreach($rangem as $m)
+									<option value="{{$m}}">{{$m}}</option>
+								@endforeach
+								</select>
                                 @if ($errors->has('month'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('month') }}</strong>
                                     </span>
                                 @endif
+								
                             </div>
                         </div>
 
@@ -112,8 +118,13 @@
                             <label for="day" class="col-md-4 control-label">Day:</label>
 
                             <div class="col-md-6">
-                                <input id="day" type="text" class="form-control"  name="day" value="{{ old('day') }}">
-
+                               <!-- <input id="day" type="text" class="form-control"  name="day" value="{{ old('day') }}"> -->
+								<?php $ranged = range(1, 31); ?>
+								<select id="day" type="select" class="form-control" name="day">
+								@foreach($ranged as $d)
+									<option value="{{$d}}">{{$d}}</option>
+								@endforeach
+								</select>
                                 @if ($errors->has('day'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('day') }}</strong>
