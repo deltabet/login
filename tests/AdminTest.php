@@ -22,9 +22,7 @@ class AdminTest extends TestCase
 		$user->city = '';
 		$user->state = '';
 		$user->zip = 00000;
-		$user->month = 0;
-		$user->day = 0;
-		$user->year = 0000;
+		$user->birthday = '0/0/0000';
 		$user->phone = 00000;
 		$password = \Hash::make('password');
 		$user->password = $password;
@@ -42,10 +40,8 @@ class AdminTest extends TestCase
 			->type('ct', 'city')
 			->type('t', 'state')
 			->type('00000', 'zip')
-			->select(2, 'month')
-			->select(2, 'day')
-			->type('0000', 'year')
-			->type('00000', 'phone')
+			->type('2/2/2014', 'birthday')
+			->type('1234567890', 'phone')
 			->type('password', 'password')
 			->type('password', 'password_confirmation')		
 			->press('Register');	
@@ -61,8 +57,8 @@ class AdminTest extends TestCase
 			$this->see('Name: nam');
 			$this->see('Email: test4admin@gmail.com');
 			$this->see('Address: ln, ct, t, 00000');
-			$this->see('Date of Birth: 2 2, 0000');
-			$this->see('Phone Number: 00000');	
+			$this->see('Date of Birth: 2/2/2014');
+			$this->see('Phone Number: 1234567890');	
 		\Auth::logout();
 	}
 
@@ -73,8 +69,8 @@ class AdminTest extends TestCase
      */
     public function testEdit()
     {
-		$olduser = User::where('email', 'test@gmail.com')->first();
-		echo $olduser->id;
+		//$olduser = User::where('email', 'test@gmail.com')->first();
+		//echo $olduser->id;
         //login
 		$this->visit('/login')->type('admin@neuone.com', 'email')->type('password', 'password')
 			->press('Login')
@@ -84,9 +80,7 @@ class AdminTest extends TestCase
 			->type('Test City', 'city')
 			->type('TS', 'state')
 			->type('54321', 'zip')
-			->select(6, 'month')
-			->select(30, 'day')
-			->type('2016', 'year')
+			->type('6/30/2016', 'birthday')
 			->type('0987654321', 'phone')		
 			->press('Submit');
 			\Auth::logout();
@@ -96,7 +90,7 @@ class AdminTest extends TestCase
 			$this->see('Name: Test Name');
 			$this->see('Email: adminedit@gmail.com');
 			$this->see('Address: 321 Test Ln, Test City, TS, 54321');
-			$this->see('Date of Birth: 6 30, 2016');
+			$this->see('Date of Birth: 6/30/2016');
 			$this->see('Phone Number: 0987654321');
     }
 

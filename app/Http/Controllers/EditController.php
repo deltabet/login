@@ -10,6 +10,13 @@ use DB;
 class EditController extends Controller
 {
     public function editUser(Request $request){
+		$this->validate($request, [
+			'name' => 'max:255',
+            'email' => 'email|max:255|unique:users',
+			'zip' => 'numeric|digits:5',
+			'birthday' => 'date_format:m/d/Y',
+			'phone' => 'numeric|digits:10',
+		]);
         $email = \Auth::user()->email;
 		$thisUser = User::where('email', $email)->first();
 		if ($request->input('name') != ""){
@@ -27,14 +34,8 @@ class EditController extends Controller
 		if ($request->input('zip') != ""){
 			$thisUser->zip = $request->input('zip');
 		}
-		if ($request->input('month') != ""){
-			$thisUser->month = $request->input('month');
-		}
-		if ($request->input('day') != ""){
-			$thisUser->day = $request->input('day');
-		}
-		if ($request->input('year') != ""){
-			$thisUser->year = $request->input('year');
+		if ($request->input('birthday') != ""){
+			$thisUser->birthday = $request->input('birthday');
 		}
 		if ($request->input('phone') != ""){
 			$thisUser->phone = $request->input('phone');

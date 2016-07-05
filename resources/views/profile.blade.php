@@ -20,7 +20,7 @@
                 </div>
 
 			<div class="panel-body">
-                    Date of Birth: {{ Auth::user()->month }} {{ Auth::user()->day }}, {{ Auth::user()->year }}  
+                    Date of Birth: {{ Auth::user()->birthday }}  
                 </div>
 
 			<div class="panel-body">

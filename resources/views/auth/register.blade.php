@@ -94,54 +94,15 @@
                             </div>
                         </div>
 
-				<div class="form-group{{ $errors->has('month') ? ' has-error' : '' }}">
-                            <label for="month" class="col-md-4 control-label">Month:</label>
+				<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                            <label for="year" class="col-md-4 control-label">Birthday:</label>
 
                             <div class="col-md-6">
-                               <!-- <input id="month" type="text" class="form-control"  name="month" value="{{ old('month') }}"> -->
-								<?php $rangem = range(1, 12); ?>
-								<select id="month" type="select" class="form-control" name="month">
-								@foreach($rangem as $m)
-									<option value="{{$m}}">{{$m}}</option>
-								@endforeach
-								</select>
-                                @if ($errors->has('month'))
+                                <input id="birthday" type="text" class="form-control"  name="birthday" value="{{ old('birthday') }}">
+
+                                @if ($errors->has('birthday'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('month') }}</strong>
-                                    </span>
-                                @endif
-								
-                            </div>
-                        </div>
-
-				<div class="form-group{{ $errors->has('day') ? ' has-error' : '' }}">
-                            <label for="day" class="col-md-4 control-label">Day:</label>
-
-                            <div class="col-md-6">
-                               <!-- <input id="day" type="text" class="form-control"  name="day" value="{{ old('day') }}"> -->
-								<?php $ranged = range(1, 31); ?>
-								<select id="day" type="select" class="form-control" name="day">
-								@foreach($ranged as $d)
-									<option value="{{$d}}">{{$d}}</option>
-								@endforeach
-								</select>
-                                @if ($errors->has('day'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('day') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-				<div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
-                            <label for="year" class="col-md-4 control-label">Year:</label>
-
-                            <div class="col-md-6">
-                                <input id="year" type="text" class="form-control"  name="year" value="{{ old('year') }}">
-
-                                @if ($errors->has('year'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('year') }}</strong>
+                                        <strong>{{ $errors->first('birthday') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -21,7 +21,7 @@
                 </div>
 
 			<div class="panel-body">
-                    Date of Birth: {{ $useredit->month }} {{ $useredit->day }}, {{ $useredit->year }}  
+                    Date of Birth: {{ $useredit->birthday }} 
                 </div>
 
 			<div class="panel-body">

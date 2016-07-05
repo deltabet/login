@@ -23,10 +23,16 @@ class AdminController extends Controller
     }
 
 	public function editSubmit(Request $request){
+		$this->validate($request, [
+			'name' => 'max:255',
+            'email' => 'email|max:255|unique:users',
+			'zip' => 'numeric|digits:5',
+			'birthday' => 'date_format:m/d/Y',
+			'phone' => 'numeric|digits:10',
+		]);
+
 		$idedit = intval($request->input('idedit'));
 		$useredit = User::where('id', $idedit)->first();
-		//$useredit = DB::select('select name, address, city, state, zip,
-		 //month, day, year, phone from users where id = ?', [$idedit]);
 		if ($request->input('name') != ""){
 			$useredit->name = $request->input('name');
 		}
@@ -42,14 +48,8 @@ class AdminController extends Controller
 		if ($request->input('zip') != ""){
 			$useredit->zip = $request->input('zip');
 		}
-		if ($request->input('month') != ""){
-			$useredit->month = $request->input('month');
-		}
-		if ($request->input('day') != ""){
-			$useredit->day = $request->input('day');
-		}
-		if ($request->input('year') != ""){
-			$useredit->year = $request->input('year');
+		if ($request->input('birthday') != ""){
+			$useredit->birthday = $request->input('birthday');
 		}
 		if ($request->input('phone') != ""){
 			$useredit->phone = $request->input('phone');
@@ -69,6 +69,17 @@ class AdminController extends Controller
 	}
 
 	public function newUser(Request $request){
+		$this->validate($request, [
+			'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'address' => 'required',
+			'city' => 'required',
+			'state' => 'required',
+			'zip' => 'required|numeric|digits:5',
+			'birthday' => 'required|date_format:m/d/Y',
+			'phone' => 'required|numeric|digits:10',
+		]);
 		$email = $request->input('email');
 		//verify
 		$userexist = User::where('email', $email)->get();
@@ -92,9 +103,7 @@ class AdminController extends Controller
 		$newUser->city = $request->input('city');
 		$newUser->state = $request->input('state');
 		$newUser->zip = $request->input('zip');
-		$newUser->month = $request->input('month');
-		$newUser->day = $request->input('day');
-		$newUser->year = $request->input('year');
+		$newUser->birthday = $request->input('birthday');
 		$newUser->phone = $request->input('phone');
 		
 		$newUser->save();

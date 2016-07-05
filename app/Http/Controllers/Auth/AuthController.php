@@ -53,13 +53,11 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'address' => 'required',
-		'city' => 'required',
-		'state' => 'required',
-		'zip' => 'required|numeric',
-		'month' => 'required|numeric',
-		'day' => 'required|numeric',
-		'year' => 'required|numeric',
-		'phone' => 'required|numeric',	
+			'city' => 'required',
+			'state' => 'required',
+			'zip' => 'required|numeric|digits:5',
+			'birthday' => 'required|date_format:m/d/Y',
+			'phone' => 'required|numeric|digits:10',	
         ]);
     }
 
@@ -79,9 +77,7 @@ class AuthController extends Controller
 		'city'=> $data['city'],
 		'state'=> $data['state'],
 		'zip'=> $data['zip'],
-		'month'=> $data['month'],
-		'day'=> $data['day'],
-		'year'=> $data['year'],
+		'birthday'=>$data['birthday'],
 		'phone'=> $data['phone'],
         ]);
     }
