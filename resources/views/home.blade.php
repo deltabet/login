@@ -12,9 +12,13 @@
                 </div>
    				@if (App\Http\Controllers\AdminController::isAdmin())
 					<div class="panel-body">
-                    	<a href="{{ route('userlist') }}">User List</a>
+                    	<a href="{{ route('userlist') }}">User List</a> </br>
+						<a href="/admin/courselist">Admin Course List</a>
                 	</div>
 				@endif
+				<div>
+				<a href="/courselist">Course List</a>
+				</div>
             </div>
         </div>
     </div>

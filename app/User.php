@@ -25,6 +25,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+	public function scores(){
+		return $this->hasMany('App\Models\Score');
+	}
+
 
  	/*public static function getUserByID($id){
 		$useredit = array();	

@@ -23,6 +23,19 @@
         .fa-btn {
             margin-right: 6px;
         }
+		
+		table {
+			table-layout:fixed;
+			border-collapse: seperate;
+			border-spacing: 5px 0;
+			
+		}
+		
+		td{
+			padding: 5px 0;
+			width: 10px;
+		}
+
     </style>
 </head>
 <body id="app-layout">

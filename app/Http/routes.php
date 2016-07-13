@@ -27,6 +27,8 @@ Route::get('/profile/edit', function(){
 	return view('edit');
 });
 
+
+
 Route::post('/profile/edit', ['uses'=>'EditController@editUser']);
 
 Route::group(['middleware'=>'admin'], function(){
@@ -54,6 +56,43 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::post('/admin/reset', ['as' => 'adminreset','uses'=>'AdminController@resetPassword']);
 
+});
+
+Route::get('/courselist', function(){
+	return view('course/courselist');
+});
+Route::post('/courselist', ['uses'=>'Course\CourseController@getScore']);
+Route::get('/score/{idCourse}', function($idCourse){
+	return view('course/coursescore', ['idCourse' => $idCourse]);
+});
+Route::post('/coursescore', ['uses'=>'Course\CourseController@beginEditScore']);
+Route::get('/editScore/{idCourse}', function($idCourse){
+	return view('course/coursescoreedit', ['idCourse'=> $idCourse]);
+});
+Route::post('/editScore', ['uses'=>'Course\CourseController@editScore']);
+
+Route::group(['middleware'=>'admin'], function(){
+	Route::get('admin/courselist', function(){
+		return view('course/admincourselist');
+	});
+	Route::post('admin/courselist', ['uses'=>'Course\AdminCourseController@seeCourse']);
+	Route::get('admin/course/{idCourse}', function($idCourse){
+		return view('course/admincourseview', ['idCourse' => $idCourse]);
+	});
+	Route::post('admincourseview', ['uses'=>'Course\AdminCourseController@editCourseForm']);
+	Route::get('admin/courseEdit/{idCcourse}', function($idCourse){
+		return view('course/courseedit', ['idCourse'=>$idCourse]);
+	});
+	Route::post('admin/courseEdit', ['uses'=>'Course\AdminCourseController@editCourse']);
+	Route::post('admin/courseEdit2', ['uses'=>'Course\AdminCourseController@editCourse2']);
+	Route::get('admin/newCourse', function(){
+		return view('course/newcourse');
+	});
+	Route::get('admin/newCourse2', function(){
+		return view('course/newcourse2');
+	});
+	Route::post('admin/newCourse', ['uses'=>'Course\AdminCourseController@newCourse']);
+	Route::post('admin/newCourse2', ['uses'=>'Course\AdminCourseController@newCourse2']);
 });
 
 Route::get('/403', function(){

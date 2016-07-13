@@ -1,32 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<script>
-	function validateName(){
-		var x = document.getElementById("name").value;
-		if (x == null || x == ""){
-			document.getElementById("nameError").innerHTML = "Need Name";
-		}
-		else{
-			document.getElementById("nameError").innerHTML = "";
-		}
-	}
-</script>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">New Course</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/profile/edit') }}"> 	
+                    <form class="form-horizontal" role="form" method="POST" action="/admin/newCourse">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+
+						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-								<p id="nameError"><p>
-                                <input id="name" type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" onblur = "validateName()" onfocus = "validateName()">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -36,12 +25,11 @@
                             </div>
                         </div>
 
-
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                             <label for="address" class="col-md-4 control-label">Street:</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control"  name="address" value="{{ Auth::user()->address }}">
+                                <input id="address" type="text" class="form-control"  name="address" value="{{ old('address') }}">
 
                                 @if ($errors->has('address'))
                                     <span class="help-block">
@@ -55,7 +43,7 @@
                             <label for="city" class="col-md-4 control-label">City:</label>
 
                             <div class="col-md-6">
-                                <input id="city" type="text" class="form-control"  name="city" value="{{ Auth::user()->city }}">
+                                <input id="city" type="text" class="form-control"  name="city" value="{{ old('city') }}">
 
                                 @if ($errors->has('city'))
                                     <span class="help-block">
@@ -69,7 +57,7 @@
                             <label for="state" class="col-md-4 control-label">State:</label>
 
                             <div class="col-md-6">
-                                <input id="state" type="text" class="form-control"  name="state" value="{{ Auth::user()->state }}">
+                                <input id="state" type="text" class="form-control"  name="state" value="{{ old('state') }}">
 
                                 @if ($errors->has('state'))
                                     <span class="help-block">
@@ -83,7 +71,7 @@
                             <label for="zip" class="col-md-4 control-label">Zip Code:</label>
 
                             <div class="col-md-6">
-                                <input id="zip" type="text" class="form-control"  name="zip" value="{{ Auth::user()->zip }}">
+                                <input id="zip" type="text" class="form-control"  name="zip" value="{{ old('zip') }}">
 
                                 @if ($errors->has('zip'))
                                     <span class="help-block">
@@ -93,26 +81,11 @@
                             </div>
                         </div>
 
-
-				<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
-                            <label for="birthday" class="col-md-4 control-label">birthday:</label>
-
-                            <div class="col-md-6">
-                                <input id="birthday" type="text" class="form-control"  name="birthday" value="{{ Auth::user()->birthday }}">
-
-                                @if ($errors->has('birthday'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('birthday') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-					<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+						<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                             <label for="phone" class="col-md-4 control-label">Phone:</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control"  name="phone" value="{{ Auth::user()->phone }}">
+                                <input id="phone" type="text" class="form-control"  name="phone" value="{{ old('phone') }}">
 
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
@@ -122,41 +95,85 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
-                                @if ($errors->has('password'))
+                                @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+
+						<div class="form-group{{ $errors->has('twitter') ? ' has-error' : '' }}">
+                            <label for="twitter" class="col-md-4 control-label">Twitter Link:</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <input id="twitter" type="twitter" class="form-control" name="twitter" value="{{ old('twitter') }}">
 
-                                @if ($errors->has('password_confirmation'))
+                                @if ($errors->has('twitter'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        <strong>{{ $errors->first('twitter') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group">
+
+						<div class="form-group{{ $errors->has('facebook') ? ' has-error' : '' }}">
+                            <label for="facebook" class="col-md-4 control-label">Facebook Link:</label>
+
+                            <div class="col-md-6">
+                                <input id="facebook" type="facebook" class="form-control" name="facebook" value="{{ old('facebook') }}">
+
+                                @if ($errors->has('facebook'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('facebook') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+						<div class="form-group{{ $errors->has('pinterest') ? ' has-error' : '' }}">
+                            <label for="pinterest" class="col-md-4 control-label">Pinterest Link:</label>
+
+                            <div class="col-md-6">
+                                <input id="pinterest" type="pinterest" class="form-control" name="pinterest" value="{{ old('pinterest') }}">
+
+                                @if ($errors->has('pinterest'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pinterest') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+						<div class="form-group{{ $errors->has('numcolor') ? ' has-error' : '' }}">
+                            <label for="numcolor" class="col-md-4 control-label">Number of Tee Colors:</label>
+
+                            <div class="col-md-6">
+								Blue and White are Required</br>
+                                <input type="radio" name="blacktee" value="Black">Black</br>
+								<input type="radio" name="goldtee" value="Gold">Gold</br>
+								<input type="radio" name="greentee" value="Green">Green</br>
+								<input type="radio" name="redtee" value="Red">Red</br>
+                            </div>
+                        </div>
+
+
+						<div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Submit
+                                    <i class="fa fa-btn fa-user"></i> Continue
                                 </button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
