@@ -18,6 +18,7 @@
 						@foreach($course->colors as $color)
 						<tr>
 							<?php $scoreColor = null;
+								$hasScoreColor = false;
 								if ($hasScore){
 								$scoreColor = 
 									$score->scoreColors()->where('color', $color->color)->first();

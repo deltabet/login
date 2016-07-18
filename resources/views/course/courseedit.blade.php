@@ -153,19 +153,19 @@
 									$hasRed = 
 							($course->colors()->where('color', 'Red')->first() != null); ?>
 								Blue and White Required</br>
-                                <input type="radio" name="blacktee" value="Black"
+                                <input type="checkbox" name="blacktee" value="Black"
 								@if($hasBlack)
 									checked
 								@endif  >Black</br>
-								<input type="radio" name="goldtee" value="Gold"
+								<input type="checkbox" name="goldtee" value="Gold"
 								@if($hasGold)
 									checked
 								@endif  >Gold</br>
-								<input type="radio" name="greentee" value="Green"
+								<input type="checkbox" name="greentee" value="Green"
 								@if($hasGreen)
 									checked
 								@endif  >Green</br>
-								<input type="radio" name="redtee" value="Red"
+								<input type="checkbox" name="redtee" value="Red"
 								@if($hasRed)
 									checked
 								@endif  >Red</br>

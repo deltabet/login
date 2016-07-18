@@ -158,17 +158,17 @@
 
                             <div class="col-md-6">
 								Blue and White are Required</br>
-                                <input type="radio" name="blacktee" value="Black">Black</br>
-								<input type="radio" name="goldtee" value="Gold">Gold</br>
-								<input type="radio" name="greentee" value="Green">Green</br>
-								<input type="radio" name="redtee" value="Red">Red</br>
+                                <input type="checkbox" name="blacktee" value="Black">Black</br>
+								<input type="checkbox" name="goldtee" value="Gold">Gold</br>
+								<input type="checkbox" name="greentee" value="Green">Green</br>
+								<input type="checkbox" name="redtee" value="Red">Red</br>
                             </div>
                         </div>
 
 
 						<div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" name="Continue">
                                     <i class="fa fa-btn fa-user"></i> Continue
                                 </button>
                             </div>

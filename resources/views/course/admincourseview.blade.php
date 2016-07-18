@@ -10,6 +10,7 @@
                 <div class="panel-body">
                    {{$course->name}} </br>
                     Address: {{$course->address}}, {{$course->city}}, {{$course->state}}, {{$course->zip}} </br>
+					Phone: {{$course->phone}}</br>
 					<a href= "{{$course->website}}">Website </a></br>
 					Email: {{$course->email}}</br>
 					Twitter: {{$course->twitter}}</br>

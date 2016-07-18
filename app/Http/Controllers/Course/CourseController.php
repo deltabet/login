@@ -31,30 +31,46 @@ class CourseController extends Controller
 		$curUser = User::where('id', $userid)->first();
 		$curCourse = Course::where('id', $courseid)->first();
 		$scores = $curCourse->scores;
-		if (($curScore = $scores->where('user_id', $userid)->first()) == null){
-			$curScore = new Score;
-			$curScore->user_id = $userid;
-			$curScore->course_id = $courseid;
-			$curScore->save();
+		if (($currentScore = $scores->where('user_id', $userid)->first()) == null){
+			$currentScore = new Score;
+			$currentScore->user_id = $userid;
+			$currentScore->course_id = $courseid;
+			$currentScore->save();
 		}
 		
 		$colors = $curCourse->colors;
-		$oldColors = $curScore->scoreColors;
+		$oldColors = $currentScore->scoreColors;
 		//delete old scorecolors	
 		foreach ($oldColors as $oldColor){
 			$oldColor->delete();
 		}
-	
+		echo $currentScore->id;
 		foreach ($colors as $color){
+			echo $currentScore->id;
 			$newColor = new ScoreColor;
-			$newColor->score_id = $curScore->id;
+			$newColor->score_id = $currentScore->id;
 			$newColor->color = $color->color;
-			for ($i = 1; $i <= 18; $i++){
-				$newColor->{'sc' . $i} = intval($request->input($color->color . $i));
+			$scoreOut = 0;
+			$scoreIn = 0;
+			$curScore = 0;
+			for ($i = 1; $i <= 9; $i++){
+				$curScore = intval($request->input($color->color . $i));
+				$newColor->{'sc' . $i} = $curScore;
+				$scoreOut += $curScore;
 			}
+			$newColor->scout = $scoreOut;
+			for ($i = 10; $i <= 18; $i++){
+				$curScore = intval($request->input($color->color . $i));
+				$newColor->{'sc' . $i} = $curScore;
+				$scoreIn += $curScore;
+			}
+			$newColor->scin = $scoreIn;
+			$newColor->sctotal = $scoreOut + $scoreIn;
 			$newColor->save();
 		}
 		return redirect('/courselist');
 		
 	}
+
+	
 }

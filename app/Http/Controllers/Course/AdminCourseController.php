@@ -103,9 +103,10 @@ class AdminCourseController extends Controller
 		$newCourse = new Course;
 		//$newCourse->name = $request->input('name');
 		//add text fields
-		$newCourse->name = $request->old('name');
+		$newCourse->name = strtolower($request->old('name'));
 		foreach ($this->inputs as $input){
-			$newCourse->{$input} = $request->old($input);
+			$data = strtolower($request->old($input));
+			$newCourse->{$input} = $data;
 			if ($newCourse->{$input} == null){
 				$newCourse->{$input} = "";
 			}
@@ -189,7 +190,6 @@ class AdminCourseController extends Controller
 	}
 
 	public function editCourse2(Request $request){
-		$name = $request->input('name');
 		
 		//validate grid
 		$colors = array(0 => 'Blue', 1 => 'White');
@@ -224,7 +224,8 @@ class AdminCourseController extends Controller
 		$curCourse = \App\Models\Course::where('id', $request->old('idPass'))->first();
 		//$this->validate($request, validator);
 		foreach ($this->inputs as $input){
-			$curCourse->{$input} = $request->old($input);
+			$data = strtolower($request->old($input));
+			$curCourse->{$input} = $data;
 			if ($curCourse->{$input} == null){
 				$curCourse->{$input} = "";
 			}

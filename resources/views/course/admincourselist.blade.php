@@ -11,8 +11,9 @@
                 <div class="panel-heading">Course List</div>
 				@foreach (App\Models\Course::all() as $course)
 					<div class="panel-body">
-                    {{$course->name}} </br>
-                    Address: {{$course->address}}, {{$course->city}}, {{$course->state}}, {{$course->zip}} </br>
+                    {{ucwords($course->name)}} </br>
+                    Address: {{ucwords($course->address)}}, {{ucwords($course->city)}}, {{ucwords($course->state)}}, {{$course->zip}} </br>
+					Phone: {{$course->phone}}</br>
 					<a href= "{{$course->website}}">Website </a></br>
 					Email: {{$course->email}}</br>
 					Twitter: {{$course->twitter}}</br>
