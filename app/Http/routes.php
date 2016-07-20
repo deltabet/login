@@ -19,17 +19,19 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/profile', function(){
- 	return view('profile');
+Route::group(['middleware'=>'auth'], function(){
+	Route::get('/profile', function(){
+	 	return view('profile');
+	});
+
+	Route::get('/profile/edit', function(){
+		return view('edit');
+	});
+
+
+
+	Route::post('/profile/edit', ['uses'=>'EditController@editUser']);
 });
-
-Route::get('/profile/edit', function(){
-	return view('edit');
-});
-
-
-
-Route::post('/profile/edit', ['uses'=>'EditController@editUser']);
 
 Route::group(['middleware'=>'admin'], function(){
 
@@ -57,21 +59,22 @@ Route::group(['middleware'=>'admin'], function(){
 	Route::post('/admin/reset', ['as' => 'adminreset','uses'=>'AdminController@resetPassword']);
 
 });
-
-Route::get('/courselist', function(){
-	return view('course/courselist', ['courses' => \App\Models\Course::all(), 'curString' => 'aaa']);
+Route::group(['middleware'=>'auth'], function(){
+	Route::get('/courselist', function(){
+		return view('course/courselist', ['courses' => \App\Models\Course::all()]);
+	});
+	Route::get('/courselist/{filter}','Course\SearchController@filterList'); 
+	Route::post('/courselist/filter', ['uses' => 'Course\SearchController@filterURL']);
+	Route::post('/courselist', ['uses'=>'Course\CourseController@getScore']);
+	Route::get('/score/{idCourse}', function($idCourse){
+		return view('course/coursescore', ['idCourse' => $idCourse]);
+	});
+	Route::post('/coursescore', ['uses'=>'Course\CourseController@beginEditScore']);
+	Route::get('/editScore/{idCourse}', function($idCourse){
+		return view('course/coursescoreedit', ['idCourse'=> $idCourse]);
+	});
+	Route::post('/editScore', ['uses'=>'Course\CourseController@editScore']);
 });
-Route::get('/courselist/{filter}','Course\SearchController@filterList'); 
-Route::post('/courselist/filter', ['uses' => 'Course\SearchController@filterURL']);
-Route::post('/courselist', ['uses'=>'Course\CourseController@getScore']);
-Route::get('/score/{idCourse}', function($idCourse){
-	return view('course/coursescore', ['idCourse' => $idCourse]);
-});
-Route::post('/coursescore', ['uses'=>'Course\CourseController@beginEditScore']);
-Route::get('/editScore/{idCourse}', function($idCourse){
-	return view('course/coursescoreedit', ['idCourse'=> $idCourse]);
-});
-Route::post('/editScore', ['uses'=>'Course\CourseController@editScore']);
 
 Route::group(['middleware'=>'admin'], function(){
 	Route::get('admin/courselist', function(){

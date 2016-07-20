@@ -42,7 +42,11 @@ class AdminCourseController extends Controller
 			'city' => 'required',
 			'state' => 'required',
 			'zip' => 'required|numeric|digits:5',
-			'phone' => 'required|numeric|digits:10'
+			'phone' => 'required|numeric|digits:10',
+			'website' => 'active_url',
+			'twitter' => 'active_url',
+			'facebook' => 'active_url',
+			'pinterest' => 'active_url',
 	
 		]);
 		//pass on data and move to second part
@@ -164,6 +168,10 @@ class AdminCourseController extends Controller
 			'state' => 'required',
 			'zip' => 'required|numeric|digits:5',
 			'phone' => 'required|numeric|digits:10',
+			'website' => 'active_url',
+			'twitter' => 'active_url',
+			'facebook' => 'active_url',
+			'pinterest' => 'active_url',
 	
 		]);
 		//pass on data and move to second part

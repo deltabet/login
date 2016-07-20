@@ -177,6 +177,16 @@ class CourseTest extends TestCase
 			->see('45')->see('126')->see('171');
 	}
 
+	public function testSearch(){
+		 $this->visit('/login')->type('admin@neuone.com', 'email')->type('password', 'password')
+			->press('Login')
+			->visit('/courselist')
+			->type('city', 'city')
+			->press('submit')
+			->see('New Test Course')
+			->dontSee('Golf');
+	}
+
 	public function tearDown(){
 		$deleteCourse = \App\Models\Course::where('id', 9998)->first();
 		if ($deleteCourse != null){

@@ -96,6 +96,20 @@
                             </div>
                         </div>
 
+						<div class="form-group{{ $errors->has('website') ? ' has-error' : '' }}">
+                            <label for="website" class="col-md-4 control-label">Website</label>
+
+                            <div class="col-md-6">
+                                <input id="website" type="website" class="form-control" name="website" value="{{ $course->website }}">
+
+                                @if ($errors->has('website'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('website') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
 
 						<div class="form-group{{ $errors->has('twitter') ? ' has-error' : '' }}">
                             <label for="twitter" class="col-md-4 control-label">Twitter Link:</label>

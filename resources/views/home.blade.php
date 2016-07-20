@@ -16,9 +16,9 @@
 						<a href="/admin/courselist">Admin Course List</a>
                 	</div>
 				@endif
-				<div>
+				<!--<div>
 				<a href="/courselist">Course List</a>
-				</div>
+				</div> -->
             </div>
         </div>
     </div>

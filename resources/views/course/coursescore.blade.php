@@ -10,9 +10,9 @@ $addr = str_replace(" ", "+", $course->address) . ","
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">{{$course->name}}</div>
+                <div class="panel-heading">{{ucwords($course->name)}}</div>
                 <div class="panel-body">
-                    Address: {{$course->address}}, {{$course->city}}, {{$course->state}}, {{$course->zip}} </br>
+                    Address: {{ucwords($course->address)}}, {{ucwords($course->city)}}, {{ucwords($course->state)}}, {{$course->zip}} </br>
 					Phone: {{$course->phone}}</br>
 					<a href= "{{$course->website}}">Website </a></br>
 					Email: {{$course->email}}</br>
