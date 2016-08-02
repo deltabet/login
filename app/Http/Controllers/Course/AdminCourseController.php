@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Color;
+use App\Models\Score;
+use App\Models\ScoreColor;
 
 //name not here
 	
@@ -117,19 +119,27 @@ class AdminCourseController extends Controller
 		}
 		$parSum1 = 0;
 		$parSum2 = 0;
+		$parArray = array();
+		$hdcpArray = array();
 		for ($k = 1; $k <= 9; $k++){
 			$curPar = intval($request->input('par' . $k));
-			$newCourse->{'par' . $k} = $curPar;
-			$newCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
+			$parArray[$k - 1] = $curPar;
+			$hdcpArray[$k - 1] = intval($request->input('hdcp' . $k));
+			//$newCourse->{'par' . $k} = $curPar;
+			//$newCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
 			$parSum1 += $curPar;
 		}
 		$newCourse->parout = $parSum1;
 		for ($k = 10; $k <= 18; $k++){
 			$curPar = intval($request->input('par' . $k));
-			$newCourse->{'par' . $k} = $curPar;
-			$newCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
+			$parArray[$k - 1] = $curPar;
+			$hdcpArray[$k - 1] = intval($request->input('hdcp' . $k));
+			//$newCourse->{'par' . $k} = $curPar;
+			//$newCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
 			$parSum2 += $curPar;
 		}
+		$newCourse->par = json_encode($parArray);
+		$newCourse->hdcp = json_encode($hdcpArray);
 		$newCourse->parin = $parSum2;
 		$newCourse->partotal = $parSum1 + $parSum2;
 		$newCourse->save();
@@ -140,19 +150,23 @@ class AdminCourseController extends Controller
 			$newColor->course_id = $newCourse->id;
 			$newColor->color = $color;
 			$newColor->slope = intval($request->input($color . 'slope'));
+			$disArray = array();
 			$disSum1 = 0;
 			$disSum2 = 0;
 			for ($k = 1; $k <= 9; $k++){
 				$curDis = intval($request->input($color . $k));
-				$newColor->{'dis' . $k} = $curDis;
+				$disArray[$k - 1] = $curDis;
+				//$newColor->{'dis' . $k} = $curDis;
 				$disSum1 += $curDis;
 			}
 			$newColor->disout = $disSum1;
 			for ($k = 10; $k <= 18; $k++){
 				$curDis = intval($request->input($color . $k));
-				$newColor->{'dis' . $k} = $curDis;
+				$disArray[$k - 1] = $curDis;
+				//$newColor->{'dis' . $k} = $curDis;
 				$disSum2 += $curDis;
 			}
+			$newColor->dis = json_encode($disArray);
 			$newColor->disin = $disSum2;
 			$newColor->distotal = $disSum1 + $disSum2;
 			$newColor->save();
@@ -240,19 +254,27 @@ class AdminCourseController extends Controller
 		}
 		$parSum1 = 0;
 		$parSum2 = 0;
+		$parArray = array();
+		$hdcpArray = array();
 		for ($k = 1; $k <= 9; $k++){
 			$curPar = intval($request->input('par' . $k));
-			$curCourse->{'par' . $k} = $curPar;
-			$curCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
+			$parArray[$k - 1] = $curPar;
+			$hdcpArray[$k - 1] = intval($request->input('hdcp' . $k));
+			//$curCourse->{'par' . $k} = $curPar;
+			//$curCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
 			$parSum1 += $curPar;
 		}
 		$curCourse->parout = $parSum1;
 		for ($k = 10; $k <= 18; $k++){
 			$curPar = intval($request->input('par' . $k));
-			$curCourse->{'par' . $k} = $curPar;
-			$curCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
+			$parArray[$k - 1] = $curPar;
+			$hdcpArray[$k - 1] = intval($request->input('hdcp' . $k));
+			//$curCourse->{'par' . $k} = $curPar;
+			//$curCourse->{'hdcp' . $k} = intval($request->input('hdcp' . $k));
 			$parSum2 += $curPar;
 		}
+		$curCourse->par = json_encode($parArray);
+		$curCourse->hdcp = json_encode($hdcpArray);
 		$curCourse->parin = $parSum2;
 		$curCourse->partotal = $parSum1 + $parSum2;
 		$curCourse->save();
@@ -270,23 +292,44 @@ class AdminCourseController extends Controller
 			$newColor->course_id = $curCourse->id;
 			$newColor->color = $color;
 			$newColor->slope = intval($request->input($color . 'slope'));
+			$disArray = array();
 			$disSum1 = 0;
 			$disSum2 = 0;
 			for ($k = 1; $k <= 9; $k++){
 				$curDis = intval($request->input($color . $k));
-				$newColor->{'dis' . $k} = $curDis;
+				$disArray[$k - 1] = $curDis;
+				//$newColor->{'dis' . $k} = $curDis;
 				$disSum1 += $curDis;
 			}
 			$newColor->disout = $disSum1;
 			for ($k = 10; $k <= 18; $k++){
 				$curDis = intval($request->input($color . $k));
-				$newColor->{'dis' . $k} = $curDis;
+				$disArray[$k - 1] = $curDis;
+				//$newColor->{'dis' . $k} = $curDis;
 				$disSum2 += $curDis;
 			}
+			$newColor->dis = json_encode($disArray);
 			$newColor->disin = $disSum2;
 			$newColor->distotal = $disSum1 + $disSum2;
 			$newColor->save();
 		}
+		return redirect('/admin/courselist');
+	}
+
+	public function deleteCourse(Request $request){
+		$iddelete = intval($request->input('iddelete'));
+		$coursedelete = Course::where('id', $iddelete)->first();
+		for ($coursedelete->colors as $color){
+			$color->delete();
+		}
+		$scores = Score::where('course_id', $iddelete)->get();
+		for ($scores as $score){
+			for ($score->scoreColors as $scoreColor){
+				$scoreColor->delete();
+			}
+			$score->delete();
+		}
+		$coursedelete->delete();
 		return redirect('/admin/courselist');
 	}
 }

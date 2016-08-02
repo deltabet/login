@@ -25,8 +25,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-	public function scores(){
-		return $this->hasMany('App\Models\Score');
+	public function players(){
+		return $this->hasMany('App\Models\Player');
 	}
 
 

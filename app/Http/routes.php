@@ -58,6 +58,8 @@ Route::group(['middleware'=>'admin'], function(){
 
 	Route::post('/admin/reset', ['as' => 'adminreset','uses'=>'AdminController@resetPassword']);
 
+	Route::post('/admin/delete', ['as' => 'userdelete', 'uses' =>'AdminController@deleteUser']);
+
 });
 Route::group(['middleware'=>'auth'], function(){
 	Route::get('/courselist', function(){
@@ -66,11 +68,11 @@ Route::group(['middleware'=>'auth'], function(){
 	Route::get('/courselist/{filter}','Course\SearchController@filterList'); 
 	Route::post('/courselist/filter', ['uses' => 'Course\SearchController@filterURL']);
 	Route::post('/courselist', ['uses'=>'Course\CourseController@getScore']);
-	Route::get('/score/{idCourse}', function($idCourse){
+	Route::get('/course/{idCourse}', function($idCourse){
 		return view('course/coursescore', ['idCourse' => $idCourse]);
 	});
 	Route::post('/coursescore', ['uses'=>'Course\CourseController@beginEditScore']);
-	Route::get('/editScore/{idCourse}', function($idCourse){
+	Route::get('/course/{idCourse}/editScore', function($idCourse){
 		return view('course/coursescoreedit', ['idCourse'=> $idCourse]);
 	});
 	Route::post('/editScore', ['uses'=>'Course\CourseController@editScore']);
@@ -98,9 +100,25 @@ Route::group(['middleware'=>'admin'], function(){
 	});
 	Route::post('/admin/newCourse', ['uses'=>'Course\AdminCourseController@newCourse']);
 	Route::post('/admin/newCourse2', ['uses'=>'Course\AdminCourseController@newCourse2']);
+
+	Route::post('/admin/deletecourse', ['as' => 'deletecourse', 'uses' =>'Course\AdminCourseController@deleteCourse']);
 });
 
+Route::get('/player/new', function(){
+	return view('course/newplayer');
+});
+Route::post('/player/new', ['uses'=>'Course\PlayerController@newPlayer']);
+Route::get('/player/{idPlayer}', function($idPlayer){
+	return view('course/player', ['idPlayer' => $idPlayer]);
+});
+Route::get('/player/{idPlayer}/{idScore}', function($idPlayer, $idScore){
+	return view('course/coursescore', ['idPlayer' => $idPlayer, 'idScore' => $idScore]);
+});
+Route::get('player/{idPlayer}/{idScore}/edit', function($idPlayer, $idScore){
+	return view('course/scoreedit', ['idPlayer' => $idPlayer, 'idScore' => $idScore]);
+});
 Route::get('/403', function(){
 	return view('403');
 });
+
 

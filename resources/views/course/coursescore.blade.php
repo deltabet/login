@@ -5,7 +5,8 @@
 $addr = str_replace(" ", "+", $course->address) . ","
 	. str_replace(" ", "+", $course->city) . "+"
     . str_replace(" ", "+", $course->state) . ","
-	. str_replace(" ", "+", $course->zip);  ?>
+	. str_replace(" ", "+", $course->zip); 
+	 ?>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -35,40 +36,45 @@ $addr = str_replace(" ", "+", $course->address) . ","
 							</tr>
 						@foreach($course->colors as $color)
 						<tr>
+							<?php $colorArray = json_decode($color->dis); ?>
 							<td>{{$color->color}}</td> <!-- capitalize -->	
 							
 							@for($k=1; $k<=9; $k++)
-								<td><?php echo $color->{'dis' . $k}; ?></td>
+								<td>{{$colorArray[$k - 1]}}</td>
 							@endfor
 							<td>{{$color->disout}}</td>
 							@for($k=10; $k<=18; $k++)
-								<td><?php echo $color->{'dis' . $k}; ?></td>
+								<td>{{$colorArray[$k - 1]}}</td>
 							@endfor
 							<td>{{$color->disin}}</td>
 							<td>{{$color->distotal}}</td>
 							<td>{{$color->slope}}</td>
 						</tr>
 						@endforeach
-						<?php $idUser = \Auth::user()->id;
+						<!-- <?php $idUser = \Auth::user()->id;
 								$scores = $course->scores;
 								$score = $scores->where('user_id', $idUser)->first();?>
 						 @foreach($course->colors as $color)
 						 <tr>
-							<td>{{$color->color}}</td> <!-- capitalize -->	
+							<td>{{$color->color}}</td> 	
 							<?php $scoreColor = null;
 							if ($score != null){
 							$scoreColor = 
 							$score->scoreColors()->where('color', $color->color)->first();
+							}
+							$scoreArray = array();
+							if ($scoreColor != null){
+								$scoreArray = json_decode($scoreColor->sc);
 							} ?>	
 							@for($k=1; $k<=9; $k++)
 								<td>@if($scoreColor != null)
-									<?php echo $scoreColor->{'sc' . $k}; ?>
+									{{$scoreArray[$k - 1]}}
 								@endif</td>
 							@endfor
 							<td>@if($scoreColor != null) {{$scoreColor->scout}} @endif</td>
 							@for($k=10; $k<=18; $k++)
 								<td>@if($scoreColor != null)
-									<?php echo $scoreColor->{'sc' . $k}; ?>
+									{{$scoreArray[$k - 1]}}
 								@endif</td>
 							@endfor
 							<td>@if($scoreColor != null) {{$scoreColor->scin}} @endif</td>
@@ -76,35 +82,38 @@ $addr = str_replace(" ", "+", $course->address) . ","
 							
 							<td>{{$color->slope}} @endif</td>
 						</tr> 
-						@endforeach 
+						@endforeach  -->
 							<tr>
+								<?php $parArray = json_decode($course->par); ?>
 								<td>Par</td>
 								@for ($i = 1; $i <= 9; $i++)
-								<td><?php echo $course->{'par' . $i}; ?></td>
+								<td>{{$parArray[$i - 1]}}</td>
 								@endfor
 								<td>{{$course->parout}}</td>
 								@for ($i = 10; $i <= 18; $i++)
-								<td><?php echo $course->{'par' . $i}; ?></td>
+								<td>{{$parArray[$i - 1]}}</td>
 								@endfor
 								<td>{{$course->parin}}</td>
 								<td>{{$course->partotal}}</td>
 								<td></td>
 							</tr>
 							<tr>
+								<?php $hdcpArray = json_decode($course->hdcp); ?>
 								<td>Handicap</td>
 								@for ($i = 1; $i <= 9; $i++)
-								<td><?php echo $course->{'hdcp' . $i}; ?></td>
+								<td>{{$hdcpArray[$i - 1]}}</td>
 								@endfor
 								<td></td>
-								@for ($i = 1; $i <= 9; $i++)
-								<td><?php echo $course->{'hdcp' . $i}; ?></td>
+								@for ($i = 10; $i <= 18; $i++)
+								<td>{{$hdcpArray[$i - 1]}}</td>
 								@endfor
 								<td></td>
 								<td></td>
 								<td></td>
-							</tr>                        
+							</tr>                       
 						</table> 
-					<form action ="{{'/editScore/' . $course->id}}">
+					
+					<form action ="{{'/course/' . $course->id . /editScore' }}">
 					{{ csrf_field() }}
 					<button  method = "GET" name = "enterscore" value = "{{$course->id}}">Edit Score</button> </form>
 				</div>

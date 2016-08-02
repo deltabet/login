@@ -20,12 +20,13 @@
 								$curColor = "";?>
 							@if($hasColor == true)
 								<?php $curColor = 
-								$course->colors()->where('color', $color)->first(); ?>
+								$course->colors()->where('color', $color)->first(); 
+							    $disArray = json_decode($color->dis); ?>
 							@endif
 							@for($k=1; $k<=18; $k++)
 								<td><input type="text" size="2" name="{{'' . $color . $k}}" 
 								@if($hasColor == true)
-								value="<?php echo $curColor->{'dis' . $k}; ?>"
+								value={{$disArray[$k-1]}}"
 								@endif
 								></td>
 							@endfor
@@ -36,18 +37,20 @@
 						</tr>
 						@endforeach
 							<tr>
+								<?php $parArray = json_decode($course->par); ?>
 								<td>Par</td>
 								@for ($i = 1; $i <= 18; $i++)
 								<td><input type="text" size="2" name="{{'par' . $i}}" 				
-							value="<?php echo $course->{'par' . $i}; ?>"></td>
+							value="{{$parArray[$i-1]}}"></td>
 								@endfor
 								<td></td>
 							</tr>
 							<tr>
+								<?php $hdcpArray = json_decode($course->hdcp); ?>
 								<td>Handicap</td>
 								@for ($i = 1; $i <= 18; $i++)
 								<td><input type="text" size="2" name="{{'hdcp' . $i}}" 	
-									value="<?php echo $course->{'hdcp' . $i}; ?>"></td>
+									value="{{$hdcpArray[$i-1]}}"></td>
 								@endfor
 								<td></td>
 							</tr>                        

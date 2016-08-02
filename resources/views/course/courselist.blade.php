@@ -41,8 +41,8 @@
 							<a href="{{$course->facebook}}"><img alt="facebook" src="facebook.jpeg" width="25" height="25"></a>
 							<a href="{{$course->pinterest}}"><img alt="pinterest" src="pinterest.jpg" width="25" height="25"></a>
 						</td>
-						<td><form action ="{{'/score/' . $course->id}}">
-					{{ csrf_field() }}
+						<td><form action ="{{'/course/' . $course->id'}}">
+					
 					<button  method = "GET" name = "seeScore" value = "{{$course->id}}">See Score
 						</button> </form></td>
 					</tr>

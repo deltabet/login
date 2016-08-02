@@ -10,6 +10,11 @@ use DB;
 use Illuminate\Mail\Message;
 class AdminController extends Controller
 {
+	protected $user;
+
+	public function __construct(User $user){
+		$this->user = $user;
+	}
 
 
     public static function isAdmin(){
@@ -87,7 +92,7 @@ class AdminController extends Controller
 		if (count($userexist) >= 1){
 		  return redirect(route('adminnew'))->withErrors(['email', 'Email Already Exists']);
 		}
-		$newUser = new User;
+		$newUser = $this->user;
 		$password = $request->input('password');
 		$passwordconfirm = $request->input('password_confirmation');
 		if (strcmp($password, $passwordconfirm) !== 0){
@@ -121,6 +126,13 @@ class AdminController extends Controller
 		\Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject('Your Password Reset Link');
         });
+		return redirect(route('userlist'));
+	}
+
+	public function deleteUser(Request $request){
+		$iddelete = intval($request->input('iddelete'));
+		$userdelete = User::where('id', $iddelete)->first();
+		$userdelete->delete();
 		return redirect(route('userlist'));
 	}
 }

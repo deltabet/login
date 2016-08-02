@@ -23,6 +23,9 @@
 					<form action ="{{route('adminreset')}}" method="POST">
 					{{ csrf_field() }}
 					<button  method="POST" name = "email" value = "{{$user->email}}"> Reset Password</button> </form>
+					<form action ="{{route('userdelete')}}" method="POST">
+					{{ csrf_field() }}
+					<button  method="POST" name = "iddelete" value = "{{$user->id}}"> Delete</button> </form>
                 </div>
 				@endforeach
             </div>

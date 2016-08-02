@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<?php $course = \App\Models\Course::where('id', $idCourse)->first();
-	$players = Auth::User()->players; ?>
+<?php $score = \App\Models\Score::where('id', $idScore)->first();
+	$player = \App\Models\Player::where('id', $idPlayer)->first();
+	$course = $score->course; ?>
 
                     <form class="form-horizontal" role="form" method="POST" action="/editScore">
                         {{ csrf_field() }}
-						@foreach($players as $player)
-						<input type="radio" name="playerSelect" value="{{$player->id}}" checked>{{$player->name}}
-					@endforeach
+						
+						
+					
 						<table>
 							<tr>
 								<td>Hole</td>					
@@ -16,9 +17,6 @@
 								<td>{{$i}}</td>
 								@endfor
 							</tr>
-						<?php $score = 
-							\Auth::user()->scores()->where('course_id', $idCourse)->first();
-							$hasScore = ($score != null); ?>
 						@foreach($course->colors as $color)
 						<tr>
 							<?php $scoreColor = null;
@@ -43,6 +41,7 @@
 						@endforeach                      
 						</table>
 						<input type="hidden" name="idPass" value="{{$course->id}}">
+						<input type="hidden" name="playerSelect" value="{{$player->id}}">
 						<input type="submit" value="submit" name="submit">
 					 </form>
 

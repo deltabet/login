@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Color;
+use App\Models\Score;
 
 class SearchController extends Controller
 {
@@ -83,5 +84,27 @@ class SearchController extends Controller
 		$url = substr($url, 0, -1);
 		return redirect($url);
 		
+	}
+
+	public static function getAge(string $today, string $birthday){
+		$todayArray = explode('/', $today);
+		$birthdayArray = explode('/', $birthdayArray);
+		$age = intval($todayArray[2] - $birthdayArray[2]);
+		if (intval($todayArray[1] <= $birthdayArray[1]){
+			if (intval($todayArray[0] < $birthdayArray[0]){
+				$age -= 1;
+			}
+		}
+		return $age;
+	}
+
+	public static function getScore(Score $score){
+		$scoreNum = 0;
+		foreach($score->scoreColors as $scoreColor){
+			if ($scoreColor->sctotal > 0){
+				$scoreNum = $scoreColor->sctotal;
+			}
+		}
+		return $scoreNum;
 	}
 }

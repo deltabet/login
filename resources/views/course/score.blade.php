@@ -1,14 +1,16 @@
 @extends('layouts.app')
-
+<!-- pass in course, score object -->
 @section('content')
-<?php $course = \App\Models\Course::where('id', $idCourse)->first(); ?>
+<?php $player = \App\Modles\Player::where('id', $idPlayer)->first();
+		$score = \App\Modles\Score::where('id', $idScore)->first();
+		$course = $score->course;
+	 ?>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">{{ucwords($course->name)}}</div>
                 <div class="panel-body">
-                   {{ucwords($course->name)}} </br>
                     Address: {{ucwords($course->address)}}, {{ucwords($course->city)}}, {{ucwords($course->state)}}, {{$course->zip}} </br>
 					Phone: {{$course->phone}}</br>
 					<a href= "{{$course->website}}">Website </a></br>
@@ -16,8 +18,7 @@
 					Twitter: {{$course->twitter}}</br>
 					Facebook: {{$course->facebook}}</br>
 					Pinterest: {{$course->pinterest}}</br>
-		
-					<table border="1">
+					 <table border="1">
 							<tr>
 								<th style="width:65px">Hole</th>						
 								@for ($i = 1; $i <= 9; $i++)
@@ -33,21 +34,50 @@
 							</tr>
 						@foreach($course->colors as $color)
 						<tr>
-							<?php $disArray = json_decode($color->dis); ?>
+							<?php $colorArray = json_decode($color->dis); ?>
 							<td>{{$color->color}}</td> <!-- capitalize -->	
 							
 							@for($k=1; $k<=9; $k++)
-								<td>{{$disArray[$k - 1]}}</td>
+								<td>{{$colorArray[$k - 1]}}</td>
 							@endfor
 							<td>{{$color->disout}}</td>
 							@for($k=10; $k<=18; $k++)
-								<td>{{$disArray[$k - 1]}}</td>
+								<td>{{$colorArray[$k - 1]}}</td>
 							@endfor
 							<td>{{$color->disin}}</td>
 							<td>{{$color->distotal}}</td>
 							<td>{{$color->slope}}</td>
 						</tr>
 						@endforeach
+						 @foreach($course->colors as $color)
+						 <tr>
+							<td>{{$color->color}}</td> 	
+							<?php $scoreColor = null;
+							if ($score != null){
+							$scoreColor = 
+							$score->scoreColors()->where('color', $color->color)->first();
+							}
+							$scoreArray = array();
+							if ($scoreColor != null){
+								$scoreArray = json_decode($scoreColor->sc);
+							} ?>	
+							@for($k=1; $k<=9; $k++)
+								<td>@if($scoreColor != null)
+									{{$scoreArray[$k - 1]}}
+								@endif</td>
+							@endfor
+							<td>@if($scoreColor != null) {{$scoreColor->scout}} @endif</td>
+							@for($k=10; $k<=18; $k++)
+								<td>@if($scoreColor != null)
+									{{$scoreArray[$k - 1]}}
+								@endif</td>
+							@endfor
+							<td>@if($scoreColor != null) {{$scoreColor->scin}} @endif</td>
+							<td>@if($scoreColor != null) {{$scoreColor->sctotal}} </td>
+							
+							<td>{{$color->slope}} @endif</td>
+						</tr> 
+						@endforeach  
 							<tr>
 								<?php $parArray = json_decode($course->par); ?>
 								<td>Par</td>
@@ -75,12 +105,16 @@
 								<td></td>
 								<td></td>
 								<td></td>
-							</tr>                                
-						</table>
-						<form action ="{{'/admin/courseEdit/' . $course->id}}">
+							</tr>                       
+						</table> 
+					
+					<form action ="{{'/course/' . $course->id . /editScore' }}">
 					{{ csrf_field() }}
-					<button  method = "GET" name = "editcourse" value = "{{$course->id}}">Edit Course</button> </form>
-                </div>
+					<button  method = "GET" name = "enterscore" value = "{{$course->id}}">Edit Score</button> </form>
+				</div>
+				<div>
+						
+				</div>
             </div>
         </div>
     </div>
