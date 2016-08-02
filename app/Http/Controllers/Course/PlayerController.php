@@ -14,8 +14,8 @@ class PlayerController extends Controller
 	
 	protected $player;
 
-	public function __construct(Player $player){
-		$this->player = $player;
+	public function __construct(Player $playerParam){
+		$this->player = $playerParam;
 	}
 	
     public function newPlayer(Request $request){
@@ -23,18 +23,21 @@ class PlayerController extends Controller
 			'name' => 'required|unique:players',
 			'birthday' => 'required|date_format:m/d/Y',
 		]);
-		$player->user_id = \Auth::User()->id;
-		$player->name = $request->input('name');
-		$player->birthday = $request->input('birthday');
-		//$player->save();
-		/*$sessionArray = session('recentScores');
-		$i = $player->id;
+		$newPlayer = $this->player;
+		$newPlayer->user_id = \Auth::User()->id;
+		$newPlayer->name = $request->input('name');
+		$newPlayer->birthday = $request->input('birthday');
+		$newPlayer->save();
+		$sessionArray = session('recentScores');
+		$i = $newPlayer->id;
 		$sessionArray[$i] = array();
-		$sessionArray[$i]['name'] = $player->name;
-		$sessionArray[$i]['birthday'] = SearchController@getAge(date('m/d/Y'), $player->birthday);
+		$sessionArray[$i]['name'] = $newPlayer->name;
+		$sessionArray[$i]['age'] = SearchController::getAge(date('m/d/Y'), $newPlayer->birthday);
 		$sessionArray[$i]['course'] = "";
 		$sessionArray[$i]['score'] = 0;
-		session()->put('recentScores', $sessionArray);*/
-		//return redirect('/');
+		$sessionArray[$i]['scoreid'] = -1;
+		$sessionArray[$i]['playerid'] = $newPlayer->id;
+		session()->put('recentScores', $sessionArray);
+		return redirect('/');
 	}
 }

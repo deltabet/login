@@ -7,7 +7,7 @@ $addr = str_replace(" ", "+", $course->address) . ","
     . str_replace(" ", "+", $course->state) . ","
 	. str_replace(" ", "+", $course->zip); 
 	 ?>
-<div class="container">
+ <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -20,7 +20,7 @@ $addr = str_replace(" ", "+", $course->address) . ","
 					Twitter: {{$course->twitter}}</br>
 					Facebook: {{$course->facebook}}</br>
 					Pinterest: {{$course->pinterest}}</br>
-					 <table border="1">
+					<table border="1">
 							<tr>
 								<th style="width:65px">Hole</th>						
 								@for ($i = 1; $i <= 9; $i++)
@@ -113,10 +113,10 @@ $addr = str_replace(" ", "+", $course->address) . ","
 							</tr>                       
 						</table> 
 					
-					<form action ="{{'/course/' . $course->id . /editScore' }}">
+					<form action ="{{'/course/' . $course->id . '/editScore' }}">
 					{{ csrf_field() }}
-					<button  method = "GET" name = "enterscore" value = "{{$course->id}}">Edit Score</button> </form>
-				</div>
+					<button  method = "GET" name = "enterscore" value = "{{$course->id}}">Add Score</button> </form>
+				</div> 
 				<div>
 					<iframe
 					  width="600"
@@ -124,11 +124,11 @@ $addr = str_replace(" ", "+", $course->address) . ","
 					  frameborder="0" style="border:0"
 					  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBzYHcdBuGkEUB6AJIQVPe6pG2O5-WDKqI 
 						&q={{$addr}}" allowfullscreen>
-					</iframe>
+					</iframe> 
 						
 				</div>
             </div>
         </div>
     </div>
-</div>
+</div> 
 @endsection

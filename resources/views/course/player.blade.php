@@ -8,34 +8,33 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">{{$player->name}}</div>
-
+<?php /*
                 <div class="panel-body">
                     Scores
-						
-
                 </div>
 				<div>
-					<table>
+					<table border="1">
 						<tr>
-							<th>Course</th>
-							<th>Score(view)</th>
-							<th>Date</th>
+							<th style="width:65px">Course</th>
+							<th style="width:65px">Score(view)</th>
+							<th style="width:65px">Date</th>
 						</tr>
 						@foreach($player->scores as $score)
 						<tr>
 							<td>{{$score->course}}</td>
 							<td>{{App\Http\Controllers\SearchController::getScore($score)}}</td>
 							<td>{{$score->date}}</td>
-							<td><form action ="{{'/player/ . $player->id .'/' . $score->id}}">
+							<td><a href ="{{'/player/ . $player->id .'/' . $score->id}}">
 					
 					<button  method = "GET" name = "seeScore" value = "{{$score->id}}">See Score
-						</button> </form></td>
+						</a></td>
 						</tr>
 						@endforeach
 					</table>
+				</div> */?>
 				</div> 
             </div>
         </div>
     </div>
-</div>
+</div> 
 @endsection

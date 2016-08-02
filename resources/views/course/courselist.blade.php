@@ -6,7 +6,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Course List</div>
-				<div>
+			<div>
 						Filter List:
 					<form action="/courselist/filter" method = "POST">
 						{{ csrf_field() }}
@@ -41,22 +41,19 @@
 							<a href="{{$course->facebook}}"><img alt="facebook" src="facebook.jpeg" width="25" height="25"></a>
 							<a href="{{$course->pinterest}}"><img alt="pinterest" src="pinterest.jpg" width="25" height="25"></a>
 						</td>
-						<td><form action ="{{'/course/' . $course->id'}}">
+						<td><form action ="{{'/course/' . $course->id}}">
 					
 					<button  method = "GET" name = "seeScore" value = "{{$course->id}}">See Score
-						</button> </form></td>
+						</button> </form> </td> 
 					</tr>
-					@endforeach
+					@endforeach 
 
-				</table>
+				</table> 
+				</div>
                 </div>    
         </div>
     </div>
 </div>
-@endsection
-
-
-
 <?php /*
 <div class="panel-body">
                     {{$course->name}} <\br>
@@ -71,3 +68,8 @@
 					<button  method = "POST" name = "seeScore" value = "{{$course->id}}">See Score</button> </form>
 					</div>
 */?>
+@endsection
+
+
+
+

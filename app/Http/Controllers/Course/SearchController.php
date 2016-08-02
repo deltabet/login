@@ -88,10 +88,10 @@ class SearchController extends Controller
 
 	public static function getAge(string $today, string $birthday){
 		$todayArray = explode('/', $today);
-		$birthdayArray = explode('/', $birthdayArray);
+		$birthdayArray = explode('/', $birthday);
 		$age = intval($todayArray[2] - $birthdayArray[2]);
-		if (intval($todayArray[1] <= $birthdayArray[1]){
-			if (intval($todayArray[0] < $birthdayArray[0]){
+		if (intval($todayArray[1] <= $birthdayArray[1])){
+			if (intval($todayArray[0] < $birthdayArray[0])){
 				$age -= 1;
 			}
 		}

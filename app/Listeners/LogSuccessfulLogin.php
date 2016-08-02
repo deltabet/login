@@ -34,18 +34,20 @@ class LogSuccessfulLogin
 		foreach($user->players as $player){
 			$i = $player->id;
 			$recentScores[$i] = array();
-			$recentScore = $player->scores()->orderBy('created_at', 'desc')->first();
+			$recentScore = $player->scores->sortByDesc('created_at')->first();
 			$recentScores[$i]['name'] = $player->name;
 			$recentScores[$i]['age'] = SearchController::getAge(date('m/d/Y'), $player->birthday);
 			if ($recentScore != null){
-				$recentScores[$i]['course'] = $recentScore->course()->name;
-				$recentScores[$i]['score'] = getScore($recentScore);
+				$recentScores[$i]['course'] = $recentScore->course->name;
+				$recentScores[$i]['score'] = SearchController::getScore($recentScore);
+				$recentScores[$i]['scoreid'] = $recentScore->id;
 			}
 			else{
 				$recentScores[$i]['course'] = "";
 				$recentScores[$i]['score'] = 0;
+				$recentScores[$i]['scoreid'] = -1;
 			}
-		}    
+		} 
 		session()->put('recentScores', $recentScores);
     }
 

@@ -2,7 +2,9 @@
 
 @section('content')
 <?php $recentScores = session('recentScores'); 
-		$user = session('user'); ?>
+		$user = session('user'); 
+		//print_r($recentScores);
+		$recentscores = array();?>
 
 <div class="container">
     <div class="row">
@@ -24,12 +26,17 @@
 							<th style="width:65px">Course</th>
 							<th style="width:65px">Score(view)</th>
 						</tr>
-						@foreach($recentScores as $score)
+						@foreach($recentScores as $key => $score)
 						<tr>
-							<td><a href="{{'/player/' . $user->id}}">{{$score['name']}}</a></td>
+							<td><a href="{{'/player/' . $key}}">{{$score['name']}}</a></td>
 							<td>{{$score['age']}}</td>
 							<td>{{$score['course']}}</td>
-							<td><a href="{{'/player/' . $user->id . '/' . $score['scoreid']}}">{{$score['score']}}</a></td>
+	
+							@if ($score['score'] != "" && $score['score'] != null)
+							<td><a href="{{'/player/' . $key . '/' . $score['scoreid']}}">{{$score['score']}}</a></td>
+							@else
+							<td>{{$score['score']}}</td>
+							@endif
 						</tr>
 						@endforeach
 					</table>

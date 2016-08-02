@@ -11,6 +11,7 @@ use App\Models\Score;
 use App\Models\ScoreColor;
 use App\Models\Course;
 use App\Models\Color;
+use App\Models\Player;
 
 class CourseController extends Controller
 {
@@ -26,14 +27,15 @@ class CourseController extends Controller
 	}
 
     public function editScore(Request $request){
-		$courseid = $request->input('idPass');
+		$courseid = intval($request->input('idPass'));
 		$curCourse = Course::where('id', $courseid)->first();
 		$scores = $curCourse->scores;
-		$playerid = $request->input('player');
-		if (($currentScore = $scores->where('player_id', $userid)->first()) == null){
+		$playerid = intval($request->input('playerSelect'));
+		if (($currentScore = $scores->where('player_id', $playerid)->first()) == null){
 			$currentScore = new Score;
 			$currentScore->player_id = $playerid;
 			$currentScore->course_id = $courseid;
+			$currentScore->date = date('m/d/Y');
 			$currentScore->save();
 		}
 		
@@ -43,9 +45,7 @@ class CourseController extends Controller
 		foreach ($oldColors as $oldColor){
 			$oldColor->delete();
 		}
-		echo $currentScore->id;
 		foreach ($colors as $color){
-			echo $currentScore->id;
 			$newColor = new ScoreColor;
 			$newColor->score_id = $currentScore->id;
 			$newColor->color = $color->color;
@@ -71,14 +71,15 @@ class CourseController extends Controller
 			$newColor->sctotal = $scoreOut + $scoreIn;
 			$newColor->save();
 		}
-		$player = \App\Models\Player::where('id', $playerid)->first();
+		$player = Player::where('id', $playerid)->first();
 		$sessionArray = session('recentScores');
 		$i = $player->id;
 		$sessionArray[$i] = array();
 		$sessionArray[$i]['name'] = $player->name;
-		$sessionArray[$i]['birthday'] = SearchController@getAge(date('m/d/Y'), $player->birthday);
+		$sessionArray[$i]['age'] = SearchController::getAge(date('m/d/Y'), $player->birthday);
 		$sessionArray[$i]['course'] = $curCourse->name;
-		$sessionArray[$i]['score'] = \App\Http\Controllers\SearchController::getScore($currentScore);
+		$sessionArray[$i]['score'] = SearchController::getScore($currentScore);
+		$sessionArray[$i]['scoreid'] = $currentScore->id;
 		session()->put('recentScores', $sessionArray);
 		return redirect('/courselist');
 		
