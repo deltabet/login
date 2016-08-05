@@ -3,6 +3,14 @@
 @section('content')
 <?php $course = \App\Models\Course::where('id', $idCourse)->first();
 	$players = Auth::User()->players; ?>
+					<script>
+					function changeHome(){
+						var date = new Date();
+						date.setTime(date.getTime() + (2 * 24 * 60 * 60 * 1000));
+						var expires = date.toUTCString();
+						document.cookie = 'change_home='+'true'+';'+'expires='+expires+';path=/;';
+					}
+					</script>
 
                     <form class="form-horizontal" role="form" method="POST" action="/editScore">
                         {{ csrf_field() }}
@@ -29,7 +37,7 @@
 						@endforeach                      
 						</table>
 						<input type="hidden" name="idPass" value="{{$course->id}}">
-						<input type="submit" value="submit" name="submit">
+						<input type="submit" value="submit" name="submit" onclick="changeHome()">
 					 </form>
 
 @endsection

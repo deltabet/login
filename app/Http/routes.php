@@ -108,17 +108,21 @@ Route::get('/player/new', function(){
 	return view('course/newplayer');
 });
 Route::post('/player/new', ['uses'=>'Course\PlayerController@newPlayer']);
-Route::get('/player/{idPlayer}', function($idPlayer){
+Route::get('/player/view/{idPlayer}', function($idPlayer){
 	return view('course/player', ['idPlayer' => $idPlayer]);
 });
-Route::get('/player/{idPlayer}/{idScore}', function($idPlayer, $idScore){
+Route::get('/player/view/{idPlayer}/{idScore}', function($idPlayer, $idScore){
 	return view('course/coursescore', ['idPlayer' => $idPlayer, 'idScore' => $idScore]);
 });
-Route::get('player/{idPlayer}/{idScore}/edit', function($idPlayer, $idScore){
+Route::get('/player/{idPlayer}/{idScore}/edit', function($idPlayer, $idScore){
 	return view('course/scoreedit', ['idPlayer' => $idPlayer, 'idScore' => $idScore]);
 });
+Route::post('/deleteplayer', ['uses'=>'Course\PlayerController@deletePlayer']);
 Route::get('/403', function(){
 	return view('403');
+});
+Route::get('/recent', function(){
+	return view('course/test');
 });
 
 

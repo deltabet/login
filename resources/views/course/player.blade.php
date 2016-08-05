@@ -8,7 +8,6 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">{{$player->name}}</div>
-<?php /*
                 <div class="panel-body">
                     Scores
                 </div>
@@ -24,14 +23,14 @@
 							<td>{{$score->course}}</td>
 							<td>{{App\Http\Controllers\SearchController::getScore($score)}}</td>
 							<td>{{$score->date}}</td>
-							<td><a href ="{{'/player/ . $player->id .'/' . $score->id}}">
+							<td><a href ="{{'/player/view/' . $player->id .'/' . $score->id}}">
 					
 					<button  method = "GET" name = "seeScore" value = "{{$score->id}}">See Score
 						</a></td>
 						</tr>
 						@endforeach
 					</table>
-				</div> */?>
+				</div> 
 				</div> 
             </div>
         </div>

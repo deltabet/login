@@ -40,4 +40,17 @@ class PlayerController extends Controller
 		session()->put('recentScores', $sessionArray);
 		return redirect('/');
 	}
+
+	public function deletePlayer(Request $request){
+		$iddelete = intval($request->input('iddelete'));
+		$player = Player::where('id', $iddelete)->first();
+		foreach($player->scores as $score){
+			$score->delete();
+		}
+		$player->delete();
+		$sessionArray = session('recentScores');
+		unset($sessionArray[$iddelete]);
+		session()->put('recentScores', $sessionArray);
+		return redirect('/');
+	}
 }
